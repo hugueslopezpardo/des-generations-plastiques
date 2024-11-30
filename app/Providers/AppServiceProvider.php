@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Models\User;
+use App\Models\User\User;
 use App\Providers\Telescope\TelescopeServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Vite;

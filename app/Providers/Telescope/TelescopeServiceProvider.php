@@ -2,6 +2,7 @@
 
 namespace App\Providers\Telescope;
 
+use App\Models\User\User;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Telescope\IncomingEntry;
 use Laravel\Telescope\Telescope;
@@ -50,12 +51,11 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
 
     /**
      * Register the Telescope gate.
-     *
      * This gate determines who can access Telescope in non-local environments.
      */
     protected function gate(): void
     {
-        Gate::define('viewTelescope', function ($user) {
+        Gate::define('viewTelescope', function (User $user) {
             return app()->environment('local'); // TODO : Add logic here to check if the user can view the Telescope page.
         });
     }
