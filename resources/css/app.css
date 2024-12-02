@@ -80,3 +80,14 @@
     @apply bg-background text-foreground;
   }
 }
+
+@font-face {
+    font-family: 'Saps Regular';
+    src: url('../../public/fonts/saps-regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.font-saps-regular {
+    font-family: 'Saps Regular';
+}

@@ -1,51 +1,96 @@
-import PrimaryButton from '@/components/PrimaryButton';
-import GuestLayout from '@/layouts/GuestLayout';
-import { Head, Link, useForm } from '@inertiajs/react';
-import { FormEventHandler } from 'react';
+import {useToast} from "@/hooks/use-toast";
+import {Link, useForm} from "@inertiajs/react";
+import {FormEventHandler} from "react";
+import AuthenticationLayout from "@/layouts/AuthenticationLayout";
+import {Flex, Text} from "@radix-ui/themes";
+import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
+import {Label} from "@/components/ui/label";
+import {Input} from "@/components/ui/input";
+import {Checkbox} from "@/components/ui/checkbox";
+import {Button} from "@/components/ui/button";
+import {ArrowRight} from "lucide-react";
 
-export default function Index({ status }: { status?: string }) {
-    const { post, processing } = useForm({});
+/**
+ * @interface VerifyEmailPageProps - The props of the verify email page.
+ * @property {string} status - The status of the verify email.
+ */
+interface VerifyEmailPageProps {
+    status?: string;
+}
 
-    const submit: FormEventHandler = (e) => {
+/**
+ * Verify email page of the application.
+ * @param status - The status of the verify email.
+ * @constructor
+ */
+const VerifyEmailPage = ({status}: VerifyEmailPageProps) => {
+
+    /**
+     * Use the toast hook.
+     */
+    const { toast } = useToast();
+
+    /**
+     * The form data.
+     */
+    const { data, setData, post, processing, errors, reset } = useForm({});
+
+    /**
+     * Submit the form.
+     * @param e - The form event.
+     */
+    const submit: FormEventHandler = (e: React.FormEvent) => {
         e.preventDefault();
-
-        post(route('verification.send'));
+        post(route('verification.send'), {
+            onSuccess: () => {
+                toast({
+                    title: 'Email de vérification envoyé',
+                    description: 'Un email de vérification a été envoyé à votre adresse email.',
+                    variant: 'default'
+                })
+            },
+            onError: (errors) => {
+                toast({
+                    title: 'Erreur lors de l\'envoi de l\'email de vérification',
+                    description: 'Veuillez réessayer.',
+                    variant: 'destructive'
+                })
+            }
+        });
     };
 
     return (
-        <GuestLayout>
-            <Head title="Email Verification" />
-
-            <div className="mb-4 text-sm text-gray-600">
-                Thanks for signing up! Before getting started, could you verify
-                your email address by clicking on the link we just emailed to
-                you? If you didn't receive the email, we will gladly send you
-                another.
-            </div>
-
-            {status === 'verification-link-sent' && (
-                <div className="mb-4 text-sm font-medium text-green-600">
-                    A new verification link has been sent to the email address
-                    you provided during registration.
-                </div>
-            )}
-
-            <form onSubmit={submit}>
-                <div className="mt-4 flex items-center justify-between">
-                    <PrimaryButton disabled={processing}>
-                        Resend Verification Email
-                    </PrimaryButton>
-
-                    <Link
-                        href={route('logout')}
-                        method="post"
-                        as="button"
-                        className="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                    >
-                        Log Out
-                    </Link>
-                </div>
-            </form>
-        </GuestLayout>
+        <AuthenticationLayout title={'Vérification de l\'email'}>
+            <Flex justify={'center'} align={'center'} direction={'column'} className={'min-h-screen w-screen bg-gradient-to-r from-[#F7B501] to-yellow-600'}>
+                <Card className={'w-96 md:w-1/2'}>
+                    <CardHeader>
+                        <CardTitle>
+                            Vérification de l'email
+                        </CardTitle>
+                        <CardDescription>
+                            Merci pour votre inscription ! Avant de commencer, pourriez-vous vérifier votre adresse e-mail en cliquant sur le lien que nous venons de vous envoyer ? Si vous n'avez pas reçu l'e-mail, nous serons ravis de vous en envoyer un autre.
+                        </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <form onSubmit={submit}>
+                            <Flex direction={'column'} gap={'4'}>
+                                <Flex direction={'column'} gap={'2'}>
+                                    {status === 'verification-link-sent' && (
+                                        <Text className={'text-green-600 text-sm'}>Un nouvel email de vérification a été envoyé à l'adresse email que vous avez fournie lors de votre inscription.</Text>
+                                    )}
+                                </Flex>
+                                <Flex direction={'column'} gap={'2'}>
+                                    <Button type={'submit'} className={'w-full'} disabled={processing}>
+                                        {processing ? 'Envoi en cours...' : 'Renvoyer l\'email de vérification'} {' '} <ArrowRight size={16} />
+                                    </Button>
+                                </Flex>
+                            </Flex>
+                        </form>
+                    </CardContent>
+                </Card>
+            </Flex>
+        </AuthenticationLayout>
     );
-}
+};
+
+export default VerifyEmailPage;

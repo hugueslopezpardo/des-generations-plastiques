@@ -1,18 +1,38 @@
-import InputError from '@/components/InputError';
-import InputLabel from '@/components/InputLabel';
-import PrimaryButton from '@/components/PrimaryButton';
-import TextInput from '@/components/TextInput';
-import GuestLayout from '@/layouts/GuestLayout';
-import { Head, useForm } from '@inertiajs/react';
-import { FormEventHandler } from 'react';
+import {useToast} from "@/hooks/use-toast";
+import {Link, useForm} from "@inertiajs/react";
+import React, {FormEventHandler} from "react";
+import AuthenticationLayout from "@/layouts/AuthenticationLayout";
+import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
+import {Flex, Text} from "@radix-ui/themes";
+import {Label} from "@/components/ui/label";
+import {Input} from "@/components/ui/input";
+import {Checkbox} from "@/components/ui/checkbox";
+import {Button} from "@/components/ui/button";
+import {ArrowRight} from "lucide-react";
 
-export default function Index({
-    token,
-    email,
-}: {
+/**
+ * @interface ResetPasswordPageProps - The props of the reset password page.
+ * @property {string} token - The token of the reset password.
+ * @property {string} email - The email of the reset password.
+ */
+interface ResetPasswordPageProps {
     token: string;
     email: string;
-}) {
+}
+
+/**
+ * Reset password page of the application.
+ * @param token - The token of the reset password.
+ * @param email - The email of the reset password.
+ * @constructor
+ */
+const ResetPasswordPage = ({token, email}: ResetPasswordPageProps) => {
+
+    const { toast } = useToast();
+
+    /**
+     * The form data.
+     */
     const { data, setData, post, processing, errors, reset } = useForm({
         token: token,
         email: email,
@@ -20,81 +40,73 @@ export default function Index({
         password_confirmation: '',
     });
 
-    const submit: FormEventHandler = (e) => {
+    /**
+     * Submit the form.
+     * @param e - The form event.
+     */
+    const submit: FormEventHandler = (e: React.FormEvent) => {
         e.preventDefault();
-
         post(route('password.store'), {
             onFinish: () => reset('password', 'password_confirmation'),
+            onSuccess: () => {
+                toast({
+                    title: 'Mot de passe réinitialisé',
+                    description: 'Votre mot de passe a été réinitialisé avec succès.',
+                    variant: 'default'
+                })
+            },
+            onError: (errors) => {
+                toast({
+                    title: 'Erreur lors de la réinitialisation du mot de passe',
+                    description: 'Veuillez vérifier vos informations et réessayer.',
+                    variant: 'destructive'
+                })
+            }
         });
-    };
+    }
 
     return (
-        <GuestLayout>
-            <Head title="Reset Password" />
-
-            <form onSubmit={submit}>
-                <div>
-                    <InputLabel htmlFor="email" value="Email" />
-
-                    <TextInput
-                        id="email"
-                        type="email"
-                        name="email"
-                        value={data.email}
-                        className="mt-1 block w-full"
-                        autoComplete="username"
-                        onChange={(e) => setData('email', e.target.value)}
-                    />
-
-                    <InputError message={errors.email} className="mt-2" />
-                </div>
-
-                <div className="mt-4">
-                    <InputLabel htmlFor="password" value="Password" />
-
-                    <TextInput
-                        id="password"
-                        type="password"
-                        name="password"
-                        value={data.password}
-                        className="mt-1 block w-full"
-                        autoComplete="new-password"
-                        isFocused={true}
-                        onChange={(e) => setData('password', e.target.value)}
-                    />
-
-                    <InputError message={errors.password} className="mt-2" />
-                </div>
-
-                <div className="mt-4">
-                    <InputLabel
-                        htmlFor="password_confirmation"
-                        value="Confirm Password"
-                    />
-
-                    <TextInput
-                        type="password"
-                        name="password_confirmation"
-                        value={data.password_confirmation}
-                        className="mt-1 block w-full"
-                        autoComplete="new-password"
-                        onChange={(e) =>
-                            setData('password_confirmation', e.target.value)
-                        }
-                    />
-
-                    <InputError
-                        message={errors.password_confirmation}
-                        className="mt-2"
-                    />
-                </div>
-
-                <div className="mt-4 flex items-center justify-end">
-                    <PrimaryButton className="ms-4" disabled={processing}>
-                        Reset Password
-                    </PrimaryButton>
-                </div>
-            </form>
-        </GuestLayout>
+        <AuthenticationLayout title={'Réinitialisation du mot de passe'}>
+            <Flex height={'100vh'} width={'100vw'} justify={'center'} align={'center'} direction={'column'} className={'bg-gradient-to-r from-[#F7B501] to-yellow-500'}>
+                <Card className={'w-96 md:w-1/2'}>
+                    <CardHeader>
+                        <CardTitle>
+                            Réinitialisation du mot de passe
+                        </CardTitle>
+                        <CardDescription>
+                            Réinitialisez votre mot de passe en toute sécurité.
+                        </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <form onSubmit={submit}>
+                            <Flex direction={'column'} gap={'4'}>
+                                <Flex direction={'column'} gap={'2'}>
+                                    <Label htmlFor={'email'}>Adresse e-mail</Label>
+                                    <Input id={'email'} type={'email'} name={'email'} value={data.email} className={'mt-1 block w-full'} autoComplete={'username'} onChange={(e) => setData('email', e.target.value)} />
+                                    <Text className={'text-red-500 text-sm'}>{errors.email}</Text>
+                                </Flex>
+                                <Flex direction={'column'} gap={'2'}>
+                                    <Label htmlFor={'password'}>Mot de passe</Label>
+                                    <Input id={'password'} type={'password'} name={'password'} value={data.password} className={'mt-1 block w-full'} autoComplete={'new-password'} onChange={(e) => setData('password', e.target.value)} />
+                                    <Text className={'text-red-500 text-sm'}>{errors.password}</Text>
+                                </Flex>
+                                <Flex direction={'column'} gap={'2'}>
+                                    <Label htmlFor={'password_confirmation'}>Confirmation du mot de passe</Label>
+                                    <Input id={'password_confirmation'} type={'password'} name={'password_confirmation'} value={data.password_confirmation} className={'mt-1 block w-full'} autoComplete={'new-password'} onChange={(e) => setData('password_confirmation', e.target.value)} />
+                                    <Text className={'text-red-500 text-sm'}>{errors.password_confirmation}</Text>
+                                </Flex>
+                                <Flex direction={'row'} justify={'center'} align={'center'}>
+                                    <Button type={'submit'} className={'w-full'} disabled={processing}>
+                                        {processing ? 'Chargement...' : 'Réinitialiser le mot de passe'} {' '} <ArrowRight size={16} />
+                                    </Button>
+                                </Flex>
+                            </Flex>
+                        </form>
+                    </CardContent>
+                </Card>
+            </Flex>
+        </AuthenticationLayout>
     );
 }
+
+export default ResetPasswordPage;

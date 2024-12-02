@@ -2,5 +2,6 @@
 
 return [
     App\Providers\AppServiceProvider::class,
-    \App\Providers\Telescope\TelescopeServiceProvider::class,
+    App\Providers\Filament\AdminPanelProvider::class,
+    App\Providers\Telescope\TelescopeServiceProvider::class,
 ];

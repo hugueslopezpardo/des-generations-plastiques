@@ -1,56 +1,105 @@
-import InputError from '@/components/InputError';
-import PrimaryButton from '@/components/PrimaryButton';
-import TextInput from '@/components/TextInput';
-import GuestLayout from '@/layouts/GuestLayout';
-import { Head, useForm } from '@inertiajs/react';
-import { FormEventHandler } from 'react';
+import AuthenticationLayout from "@/layouts/AuthenticationLayout";
+import {useToast} from "@/hooks/use-toast";
+import {Link, useForm} from "@inertiajs/react";
+import React, {FormEventHandler} from "react";
+import {Flex, Text} from "@radix-ui/themes";
+import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
+import {Label} from "@/components/ui/label";
+import {Input} from "@/components/ui/input";
+import {Checkbox} from "@/components/ui/checkbox";
+import {Button} from "@/components/ui/button";
+import {ArrowRight} from "lucide-react";
 
-export default function Index({ status }: { status?: string }) {
-    const { data, setData, post, processing, errors } = useForm({
+
+/**
+ * @interface ForgotPasswordPageProps - The props of the forgot password page.
+ * @property {string} status - The status of the forgot password.
+ */
+interface ForgotPasswordPageProps {
+    status?: string;
+}
+
+/**
+ * Forgot password page of the application.
+ * @param status - The status of the forgot password.
+ * @constructor
+ */
+const ForgotPasswordPage = ({status}: ForgotPasswordPageProps) => {
+
+    const {toast} = useToast();
+
+    /**
+     * The form data.
+     */
+    const {data, setData, post, processing, errors} = useForm({
         email: '',
     });
 
-    const submit: FormEventHandler = (e) => {
+    /**
+     * Submit the form.
+     * @param e - The form event.
+     */
+    const submit: FormEventHandler = (e: React.FormEvent) => {
         e.preventDefault();
-
-        post(route('password.email'));
-    };
+        post(route('password.email'), {
+            onSuccess: () => {
+                toast({
+                    title: 'Email envoyé',
+                    description: 'Un email de réinitialisation de mot de passe vous a été envoyé.',
+                    variant: 'default'
+                })
+            },
+            onError: (errors) => {
+                toast({
+                    title: 'Erreur lors de l\'envoi de l\'email',
+                    description: 'Veuillez vérifier votre adresse email et réessayer.',
+                    variant: 'destructive'
+                })
+            }
+        });
+    }
 
     return (
-        <GuestLayout>
-            <Head title="Forgot Password" />
-
-            <div className="mb-4 text-sm text-gray-600">
-                Forgot your password? No problem. Just let us know your email
-                address and we will email you a password reset link that will
-                allow you to choose a new one.
-            </div>
-
-            {status && (
-                <div className="mb-4 text-sm font-medium text-green-600">
-                    {status}
-                </div>
-            )}
-
-            <form onSubmit={submit}>
-                <TextInput
-                    id="email"
-                    type="email"
-                    name="email"
-                    value={data.email}
-                    className="mt-1 block w-full"
-                    isFocused={true}
-                    onChange={(e) => setData('email', e.target.value)}
-                />
-
-                <InputError message={errors.email} className="mt-2" />
-
-                <div className="mt-4 flex items-center justify-end">
-                    <PrimaryButton className="ms-4" disabled={processing}>
-                        Email Password Reset Link
-                    </PrimaryButton>
-                </div>
-            </form>
-        </GuestLayout>
+        <AuthenticationLayout title={'Mot de passe oublié'}>
+            <Flex height={'100vh'} width={'100vw'} justify={'center'} align={'center'} direction={'column'}
+                  className={'bg-gradient-to-r from-[#F7B501] to-yellow-500'}>
+                <Card className={'w-96 md:w-1/2'}>
+                    <CardHeader>
+                        <CardTitle>Mot de passe oublié ?</CardTitle>
+                        <CardDescription>
+                            Vous avez oublié votre mot de passe ? Pas de problème. Indiquez-nous simplement votre
+                            adresse e-mail, et nous vous enverrons un lien de réinitialisation de mot de passe qui vous
+                            permettra d'en choisir un nouveau.
+                        </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <form onSubmit={submit}>
+                            <Flex direction={'column'} gap={'4'}>
+                                <Flex direction={'column'} gap={'2'}>
+                                    <Label htmlFor={'email'}>Adresse e-mail</Label>
+                                    <Input
+                                        id={'email'}
+                                        type={'email'}
+                                        name={'email'}
+                                        value={data.email}
+                                        className={'mt-1 block w-full'}
+                                        onChange={(e) => setData('email', e.target.value)}
+                                    />
+                                    {errors.email && <Text className={'text-red-500 text-sm'}>{errors.email}</Text>}
+                                    {status && <Text className={'text-green-500 text-sm'}>{status}</Text>}
+                                </Flex>
+                                <Flex direction={'column'} justify={'center'}>
+                                    <Button type={'submit'} className={'w-full'} disabled={processing}>
+                                        {processing ? 'Envoi en cours...' : 'Envoyer'} {' '} <ArrowRight size={16}/>
+                                    </Button>
+                                </Flex>
+                            </Flex>
+                        </form>
+                    </CardContent>
+                </Card>
+            </Flex>
+        </AuthenticationLayout>
     );
 }
+
+export default ForgotPasswordPage;

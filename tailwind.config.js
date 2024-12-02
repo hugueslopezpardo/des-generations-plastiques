@@ -14,8 +14,9 @@ export default {
     theme: {
     	extend: {
     		fontFamily: {
-    			sans: ['Figtree', ...defaultTheme.fontFamily.sans]
-    		},
+    			sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                saps: ['Saps Regular', 'sans-serif'],
+            },
     		borderRadius: {
     			lg: 'var(--radius)',
     			md: 'calc(var(--radius) - 2px)',

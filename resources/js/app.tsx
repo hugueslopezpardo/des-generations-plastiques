@@ -18,17 +18,19 @@ createInertiaApp({
             `./pages/${name}.tsx`,
             import.meta.glob('./pages/**/*.tsx'),
         ),
-    setup({ el, App, props }) {
+    setup({el, App, props}) {
         const root = createRoot(el);
 
         root.render(
             <Theme appearance={'light'}>
                 <App {...props} />
-                <Toaster />
+                <Toaster/>
             </Theme>
         );
     },
     progress: {
         color: '#4B5563',
     },
+}).then(r => {
+    console.log(r);
 });
