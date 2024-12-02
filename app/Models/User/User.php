@@ -22,7 +22,7 @@ use Filament\Models\Contracts\FilamentUser;
  * Class User
  * @package App\Models\User
  */
-class User extends Authenticatable implements MustVerifyEmail, FilamentUser
+class User extends Authenticatable implements FilamentUser
 {
     /**
      * The factory to be used for creating User instances.
