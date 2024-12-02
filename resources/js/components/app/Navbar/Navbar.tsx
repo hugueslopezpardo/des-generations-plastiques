@@ -25,7 +25,7 @@ import {
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import {Button} from "@/components/ui/button";
 import { useEffect } from 'react'
-import {Link} from "@inertiajs/react";
+import {Link, usePage} from "@inertiajs/react";
 
 const navigation = {
     categories: [
@@ -76,6 +76,11 @@ export default function Navbar() {
     useEffect(() => {
         setCurrentPath(window.location.pathname)
     }, [])
+
+    /**
+     * Get the authenticated user.
+     */
+    const user = usePage().props.auth.user;
 
     return (
         <div className="absolute mt-4 w-full">
@@ -278,18 +283,30 @@ export default function Navbar() {
                                     </div>
 
                                     <div className="flex flex-1 items-center justify-end gap-2">
-                                        <a href={'/auth/login'}
-                                           className="hidden text-sm font-bold text-gray-700 hover:text-gray-500 lg:block">
-                                            <Button variant={'secondary'}>
-                                                Connexion
-                                            </Button>
-                                        </a>
-                                        <a href={'/auth/register'}
-                                           className="hidden text-sm font-bold text-gray-700 hover:text-gray-500 lg:block">
-                                            <Button variant={'secondary'}>
-                                                Inscription
-                                            </Button>
-                                        </a>
+                                        {user && (
+                                            <Link href={'/dashboard'} className="hidden text-sm font-bold text-gray-700 hover:text-gray-500 lg:block">
+                                                <Button variant={'secondary'}>
+                                                    Mon compte
+                                                </Button>
+                                            </Link>
+                                        )}
+
+                                        {!user && (
+                                            <>
+                                                <a href={'/auth/login'}
+                                                   className="hidden text-sm font-bold text-gray-700 hover:text-gray-500 lg:block">
+                                                    <Button variant={'secondary'}>
+                                                        Connexion
+                                                    </Button>
+                                                </a>
+                                                <a href={'/auth/register'}
+                                                   className="hidden text-sm font-bold text-gray-700 hover:text-gray-500 lg:block">
+                                                    <Button variant={'secondary'}>
+                                                        Inscription
+                                                    </Button>
+                                                </a>
+                                            </>
+                                        )}
                                     </div>
                                 </div>
                             </div>
