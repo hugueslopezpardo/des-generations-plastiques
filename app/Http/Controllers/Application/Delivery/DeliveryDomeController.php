@@ -32,7 +32,7 @@ class DeliveryDomeController extends Controller
         ]);
 
         $user = auth()->user();
-        Mail::to($user->email)->send(new UserDeliveryDome($user));
+        // Mail::to($user->email)->send(new UserDeliveryDome($user));
 
         return redirect()->route('dashboard');
     }

@@ -31,11 +31,7 @@ const SetupDeliveries = ({regions}: SetupDeliveriesProps) => {
                         Livraison du kit de démarrage
                     </CardTitle>
                     <CardDescription>
-                        Maintenant que vous avez configuré votre compte, vous pouvez choisir le mode de livraison de
-                        votre
-                        kit de démarrage, bien entendu le kit et la livraison sont entièrement gratuite et vous sera
-                        livré
-                        dans les plus brefs délais.
+                        Pour commencer l’expérience, commandez votre kit plastique à enfouir, clouer ou exposer à la lumière. Les trois formules sont gratuites et permettent de commencer l’expérience dans un délai de 10 jours.
                     </CardDescription>
                 </CardHeader>
                 <CardContent>

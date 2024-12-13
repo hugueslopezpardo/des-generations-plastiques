@@ -92,21 +92,20 @@ return [
     'browsed_logo' => 'media/email-templates/logos',
 
     //Logo size in pixels -> 200 pixels high is plenty big enough.
-    'logo_width' => '500',
-    'logo_height' => '126',
+    'logo_width' => '167', // 500 / 3 = 166.67, arrondi à 167
+    'logo_height' => '42', // 126 / 3 = 42
 
     //Content Width in Pixels
     'content_width' => '600',
 
     //Contact details included in default email templates
     'customer-services' => [
-        'email' => 'support@yourcompany.com',
-        'phone' => '+441273 455702'
+        'email' => 'desgenerationsplastiques@unicaen.fr',
     ],
 
     //Footer Links
     'links' => [
-        ['name' => 'Website', 'url' => 'https://yourwebsite.com', 'title' => 'Goto website'],
+        ['name' => 'Website', 'url' => 'https://desgenerationsplastiques.unicaen.fr', 'title' => 'Goto website'],
         [
             'name' => 'Privacy Policy', 'url' => 'https://yourwebsite.com/privacy-policy',
             'title' => 'View Privacy Policy'
@@ -116,7 +115,7 @@ return [
     //Options for alternative languages
     //Note that Laravel default locale is just 'en' you can use this but
     //we are being more specific to cater for English vs USA languages
-    'default_locale' => 'en_GB',
+    'default_locale' => 'fr_FR',
 
     //These will be included in the language picker when editing an email template
     'languages' => [

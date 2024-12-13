@@ -76,9 +76,7 @@ const SetupDeliveryPoste = ({setDeliveryMethod}: SetupDeliveryPosteProps) => {
                     La Poste
                 </CardTitle>
                 <CardDescription>
-                    Si vous ne pouvez pas vous déplacer, nous pouvons vous envoyer votre commande par la poste,
-                    pour cela veuillez renseigner les informations ci-dessous, et nous vous l'enverrons dans les plus brefs délais,
-                    vous pourrez suivre votre commande grâce au numéro de suivi sur votre compte.
+                    Vous souhaitez recevoir le kit chez vous, cette formule vous permettra de le recevoir par la poste.
                 </CardDescription>
             </CardHeader>
             <CardContent>

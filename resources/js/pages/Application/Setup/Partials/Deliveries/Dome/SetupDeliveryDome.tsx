@@ -67,9 +67,7 @@ const SetupDeliveryDome = ({setDeliveryMethod}: SetupDeliveryDomeProps) => {
                     Le Dôme
                 </CardTitle>
                 <CardDescription>
-                    Le Dôme, anciennement Maison de la recherche et de l'imagination, est un centre de culture scientifique situé à Caen en Normandie. Vous pouvez y retirer vos
-                    différents kits de démarrage. Les données relatives à la ville et au code postal seront utilisées par les chercheurs pour
-                    pouvoir cartographier les différents kits répartis sur le territoire.
+                    Vous souhaitez commencer l’expérience tout de suite, récupérez directement votre kit au Dôme ! Nous vous accueillons au Fablab (2e étage) du mercredi au samedi de 14h à 18h. Ce sera l’occasion de visiter de visiter l’espace découverte des générations plastiques et de découvrir le processus de fabrication des kits.
                 </CardDescription>
             </CardHeader>
             <CardContent>
@@ -94,7 +92,7 @@ const SetupDeliveryDome = ({setDeliveryMethod}: SetupDeliveryDomeProps) => {
                         </Flex>
 
                         <Text className={'text-sm text-gray-500'}>
-                            Horaire d'ouverture: 9h00 - 18h00
+                            Le Dôme est ouvert du mercredi au samedi de 14h à 18h. Vous pouvez récupérer votre kit au Fablab au 2e étage.
                         </Text>
 
                         <Button type={'submit'} disabled={processing}>

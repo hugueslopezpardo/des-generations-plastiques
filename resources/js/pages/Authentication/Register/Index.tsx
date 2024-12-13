@@ -98,10 +98,10 @@ const RegisterPage = ({genders}: RegisterPageProps) => {
                 <Card className={'w-96 md:w-3/4 shadow-2xl'}>
                     <CardHeader>
                         <CardTitle>
-                            Inscription
+                            Inscription au protocole Des générations plastiques
                         </CardTitle>
                         <CardDescription>
-                            Pour commencer l'aventure, veuillez sélectionner le type de compte que vous souhaitez créer.
+                            Pour commencer l’aventure Des générations plastiques, sélectionnez la formule qui vous correspond. Votre inscription comprends trois étapes : la création d’un compte, la commande de votre kit et l’accès à la plateforme avec les questionnaires du protocole.
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
@@ -121,8 +121,7 @@ const RegisterPage = ({genders}: RegisterPageProps) => {
                                         </Flex>
                                     </CardTitle>
                                     <CardDescription>
-                                        Vous êtes un utilisateur individuel, choisissez cette option pour réaliser l'aventure
-                                        en solo et en toute tranquillité.
+                                        Vous souhaitez faire l’expérience en solo ou en famille, cette formule est pour vous.
                                     </CardDescription>
                                 </CardHeader>
                             </Card>
@@ -139,8 +138,7 @@ const RegisterPage = ({genders}: RegisterPageProps) => {
                                         </Flex>
                                     </CardTitle>
                                     <CardDescription>
-                                        Vous êtes un établissement scolaire, choisissez cette option pour réaliser l'aventure
-                                        en groupe avec vos élèves.
+                                        Vous êtes un établissement scolaire, cette formule vous permettra de participer au projet avec vos élèves.
                                     </CardDescription>
                                 </CardHeader>
                             </Card>
@@ -157,8 +155,7 @@ const RegisterPage = ({genders}: RegisterPageProps) => {
                                         </Flex>
                                     </CardTitle>
                                     <CardDescription>
-                                        Vous êtes une association, un organisme ou une entreprise, choisissez cette option pour
-                                        réaliser l'aventure en groupe avec vos membres.
+                                        Vous êtes une association, un centre culturel, une médiathèque, un centre de loisir, une entreprise, un établissement de santé, ou tout autre structure. cette formule vous permettra de participer au protocole avec votre groupe.
                                     </CardDescription>
                                 </CardHeader>
                             </Card>

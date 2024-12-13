@@ -22,9 +22,9 @@ class DashboardController extends Controller
 {
     /**
      * Display the dashboard view.
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function index(): Response
+    public function index(): \Illuminate\Http\RedirectResponse | Response
     {
         // Get the school where the user_id is the same as the authenticated user
         $school = School::where('user_id', auth()->id())->first();
@@ -44,6 +44,27 @@ class DashboardController extends Controller
             $members = AssociationMember::where('association_id', $association->id)->get();
         } else {
             $members = [];
+        }
+
+        // Check the user type
+        if (Auth::user()->user_type_id == 1) {
+            // If the the user have  a delivery
+            $delivery = Delivery::where('user_id', Auth::id())->first();
+            if (!$delivery) {
+                return redirect()->route('setup');
+            }
+        }
+        else if (Auth::user()->user_type_id == 2) {
+            $delivery = Delivery::where('user_id', Auth::id())->first();
+            if (!$delivery) {
+                return redirect()->route('setup');
+            }
+        }
+        else if (Auth::user()->user_type_id == 3) {
+            $delivery = Delivery::where('user_id', Auth::id())->first();
+            if (!$delivery) {
+                return redirect()->route('setup');
+            }
         }
 
         return Inertia::render('Application/Dashboard/Index', [

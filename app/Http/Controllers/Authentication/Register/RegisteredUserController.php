@@ -53,7 +53,7 @@ class RegisteredUserController extends Controller
         $user->roles()->attach(
             Role::where('slug', 'utilisateur')->first()->id
         );
-
+    /*
         // If user_type_id == 1 (individual)
         if ($request->user_type_id == 1) {
             Mail::to($user->email)->send(new UserRegisterIndividual($user));
@@ -69,10 +69,12 @@ class RegisteredUserController extends Controller
             Mail::to($user->email)->send(new UserRegisterOthers($user));
         }
 
-        event(new Registered($user));
+        // event(new Registered($user));
 
-        Auth::login($user);
+        // Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+    */
+
+        return redirect()->route('login');
     }
 }

@@ -76,6 +76,7 @@ class SetupSchoolController extends Controller
             return redirect()->route('dashboard');
         }
 
+
         if ($request->school_is_ngp) {
             Mail::to($user->email)->send(new UserWelcomeSchoolNgp($user));
         }

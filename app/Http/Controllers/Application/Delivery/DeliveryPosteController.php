@@ -32,7 +32,7 @@ class DeliveryPosteController extends Controller
 
         // Get authenticated user
         $user = auth()->user();
-        Mail::to($user->email)->send(new UserDeliveryPoste($user));
+        // Mail::to($user->email)->send(new UserDeliveryPoste($user));
 
         return redirect()->route('dashboard');
     }
