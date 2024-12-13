@@ -25,6 +25,15 @@ class SetupController extends Controller
 
         $school = auth()->user()->school ? auth()->user()->school->toArray() : [];
         $association = auth()->user()->association ? auth()->user()->association->toArray() : [];
+        $alreadySetup = !empty($school) || !empty($association);
+
+        $deliveryNeeded = true;
+
+        if ($school) {
+            if ($school['is_ngp'] && $school['is_ngp_autonomous']) {
+                $deliveryNeeded = false;
+            }
+        }
 
         $user = auth()->user();
 
@@ -34,7 +43,8 @@ class SetupController extends Controller
             'levels' => SchoolLevel::all()->toArray(),
             'associationTypes' => AssociationType::all()->toArray(),
             'deliveryTypes' => DeliveryType::all()->toArray(),
-            'alreadySetup' => !empty($school) || !empty($association),
+            'alreadySetup' => $alreadySetup,
+            'deliveryNeeded' => $deliveryNeeded,
         ]);
     }
 

@@ -7,6 +7,7 @@ use App\Http\Requests\Application\Setup\School\StoreSchoolRequest;
 use App\Mail\Visualbuilder\EmailTemplates\UserRegisterIndividual;
 use App\Mail\Visualbuilder\EmailTemplates\UserWelcomeSchoolNgp;
 use App\Mail\Visualbuilder\EmailTemplates\UserWelcomeSchoolNgpAutonomous;
+use App\Models\Delivery\Delivery;
 use App\Models\Department\Department;
 use App\Models\Region\Region;
 use App\Models\School\School;
@@ -53,6 +54,28 @@ class SetupSchoolController extends Controller
             'school_id' => $school->id,
         ]);
 
+
+        $deliveryNeeded = true;
+
+        if ($school) {
+            if ($school['is_ngp'] && !$school['is_ngp_autonomous']) {
+                $deliveryNeeded = false;
+            }
+        }
+
+        if (!$deliveryNeeded) {
+            Delivery::create([
+                'city' => $school['city'] ?? 'N/A',
+                'address' => $school['address'] ?? 'N/A',
+                'zip_code' => $school['zip_code'] ?? 'N/A',
+                'optional_information' => $school['optional_information'] ?? 'N/A',
+                'user_id' => auth()->user()->id,
+                'delivery_status_id' => 3,
+                'delivery_type_id' => 1,
+            ]);
+            return redirect()->route('dashboard');
+        }
+
         if ($request->school_is_ngp) {
             Mail::to($user->email)->send(new UserWelcomeSchoolNgp($user));
         }
@@ -60,6 +83,8 @@ class SetupSchoolController extends Controller
         if ($request->school_is_ngp_autonomous) {
             Mail::to($user->email)->send(new UserWelcomeSchoolNgpAutonomous($user));
         }
+
+        return redirect()->route('setup');
 
     }
 }

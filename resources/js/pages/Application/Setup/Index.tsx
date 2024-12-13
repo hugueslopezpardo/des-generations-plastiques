@@ -22,9 +22,10 @@ interface SetupPageProps {
     associationTypes: any[];
     deliveryTypes: DeliveryType[];
     alreadySetup: boolean;
+    deliveryNeeded: boolean;
 }
 
-const SetupPage = ({accountType, regions, levels, associationTypes, deliveryTypes, alreadySetup}: SetupPageProps) => {
+const SetupPage = ({accountType, regions, levels, associationTypes, deliveryTypes, alreadySetup, deliveryNeeded}: SetupPageProps) => {
 
     return (
         <AuthenticationLayout title={'Configuration du compte'}>

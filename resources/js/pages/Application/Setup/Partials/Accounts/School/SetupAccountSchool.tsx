@@ -211,20 +211,6 @@ const SetupAccountSchool = ({regions, levels}: SetupSchoolProps) => {
                             <Text className={'text-red-500 text-sm'}>{errors.school_zip_code}</Text>
                         </Flex>
 
-                        {/* School discipline */}
-                        <Flex direction={'column'} gap={'2'}>
-                            <Label htmlFor={'school_discipline'}>Discipline étudiée par la classe</Label>
-                            <Input
-                                type={'text'}
-                                id={'school_discipline'}
-                                name={'school_discipline'}
-                                placeholder={'Discipline étudiée par la classe'}
-                                onChange={(e) => setData('school_discipline', e.target.value)}
-                                className={`${errors.school_discipline ? 'border-red-500' : ''}`}
-                            />
-                            <Text className={'text-red-500 text-sm'}>{errors.school_discipline}</Text>
-                        </Flex>
-
                         {/* School level */}
                         <Flex direction={'column'} gap={'2'}>
                             <Label htmlFor={'school_level'}>Niveau de la classe</Label>
@@ -243,6 +229,22 @@ const SetupAccountSchool = ({regions, levels}: SetupSchoolProps) => {
                             </Select>
                             <Text className={'text-red-500 text-sm'}>{errors.school_level}</Text>
                         </Flex>
+
+                        {/* School discipline */}
+                        <Flex direction={'column'} gap={'2'}>
+                            <Label htmlFor={'school_discipline'}>Discipline enseignée par le ou la référent·e de la classe</Label>
+                            <Input
+                                type={'text'}
+                                id={'school_discipline'}
+                                name={'school_discipline'}
+                                placeholder={'Discipline enseignée par le ou la référent·e de la classe'}
+                                onChange={(e) => setData('school_discipline', e.target.value)}
+                                className={`${errors.school_discipline ? 'border-red-500' : ''}`}
+                            />
+                            <Text className={'text-red-500 text-sm'}>{errors.school_discipline}</Text>
+                        </Flex>
+
+
 
                         {/* School number of students */}
                         <Flex direction={'column'} gap={'2'}>
@@ -299,17 +301,17 @@ const SetupAccountSchool = ({regions, levels}: SetupSchoolProps) => {
                         {data.school_region === 'Normandie' && data.school_is_ngp && (
                             <Flex direction={'column'} gap={'2'}>
                                 <Label htmlFor={'school_is_ngp_autonomous'}>
-                                    Avez-vous un accompagnement du Dôme pour le programme{" "}
+                                    Suivez-vous le programme en autonomie ou avec un accompagnement ?{" "}
                                 </Label>
                                 <RadioGroup onValueChange={(value) => setData('school_is_ngp_autonomous', value === 'true')}>
                                     <div className="flex items-center space-x-2">
                                         <RadioGroupItem value="true" id="r1"/>
-                                        <Label htmlFor="r2">Oui</Label>
+                                        <Label htmlFor="r2">Programme autonome</Label>
                                     </div>
 
                                     <div className="flex items-center space-x-2">
                                         <RadioGroupItem value="false" id="r2"/>
-                                        <Label htmlFor="r2">Non</Label>
+                                        <Label htmlFor="r2">Programme accompagné</Label>
                                     </div>
                                 </RadioGroup>
                                 <Text className={'text-red-500 text-sm'}>{errors.school_is_ngp_autonomous}</Text>

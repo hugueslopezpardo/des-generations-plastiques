@@ -66,7 +66,7 @@ Route::post('/setup/school', [SetupSchoolController::class, 'store'])->name('set
 Route::post('/setup/delivery/poste', [DeliveryPosteController::class, 'store'])->name('setup.delivery.poste.store')->middleware(['auth', 'verified']);
 Route::post('/setup/delivery/dome', [DeliveryDomeController::class, 'store'])->name('setup.delivery.dome.store')->middleware(['auth', 'verified']);
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified', 'setup'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::post('/dashboard/students', [DashboardStudentController::class, 'store'])
     ->middleware(['auth', 'verified'])
