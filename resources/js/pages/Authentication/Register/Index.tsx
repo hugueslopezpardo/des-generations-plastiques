@@ -8,7 +8,7 @@ import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/compo
 import {Label} from "@/components/ui/label";
 import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";
-import {ArrowRight, HeartHandshake, School, User} from "lucide-react";
+import {ArrowRight, HeartHandshake, School, User, Users, Users2} from "lucide-react";
 import {
     Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue
 } from "@/components/ui/select";
@@ -33,6 +33,26 @@ const RegisterPage = ({genders}: RegisterPageProps) => {
      */
     const {toast} = useToast();
 
+    const [accountType, setAccountType] = useState(1);
+    const [currentStep, setCurrentStep] = useState(1);
+
+
+    /**
+     * The form data.
+     */
+    const {data, setData, post, processing, errors, reset} = useForm({
+        first_name: '',
+        last_name: '',
+        pseudo: 'N/A',
+        age: '',
+        gender: '',
+        email: '',
+        user_type_id: accountType,
+        is_solo: true,
+        password: '',
+        password_confirmation: ''
+    });
+
     const setupAccount = (type: string) => {
         if (type === 'individual') {
             setData('user_type_id', 1);
@@ -46,28 +66,10 @@ const RegisterPage = ({genders}: RegisterPageProps) => {
         setCurrentStep(2);
     }
 
-    const back = () => {
-        setData('user_type_id', 1);
-        setCurrentStep(1);
+    const setupSolo = (isSolo: boolean) => {
+        setData('is_solo', isSolo);
+        setCurrentStep(3);
     }
-
-    const [accountType, setAccountType] = useState(1);
-    const [currentStep, setCurrentStep] = useState(1);
-
-    /**
-     * The form data.
-     */
-    const {data, setData, post, processing, errors, reset} = useForm({
-        first_name: '',
-        last_name: '',
-        pseudo: 'N/A',
-        age: '',
-        gender: '',
-        email: '',
-        user_type_id: accountType,
-        password: '',
-        password_confirmation: ''
-    });
 
     /**
      * Submit the form.
@@ -98,10 +100,10 @@ const RegisterPage = ({genders}: RegisterPageProps) => {
                 <Card className={'w-96 md:w-3/4 shadow-2xl'}>
                     <CardHeader>
                         <CardTitle>
-                            Inscription au protocole Des générations plastiques
+                            Inscription au protocole
                         </CardTitle>
                         <CardDescription>
-                            Pour commencer l’aventure Des générations plastiques, sélectionnez la formule qui vous correspond. Votre inscription comprends trois étapes : la création d’un compte, la commande de votre kit et l’accès à la plateforme avec les questionnaires du protocole.
+                            Pour commencer l’aventure, sélectionnez la formule qui vous correspond. Votre inscription comprends trois étapes : la création d’un compte, la commande de votre kit et l’accès à la plateforme avec les questionnaires du protocole.
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
@@ -164,7 +166,62 @@ const RegisterPage = ({genders}: RegisterPageProps) => {
                 </Card>
             )}
 
-         {currentStep === 2 && (
+            {currentStep === 2 && (
+                <Card className={'w-96 md:w-3/4 shadow-2xl'}>
+                    <CardHeader>
+                        <CardTitle>
+                            Réponses aux questionnaires
+                        </CardTitle>
+                        <CardDescription>
+                            Lors de votre aventure vous aurez trois questionnaires à répondre tout le long de l'aventure, choisissez la manière dont vous souhaitrez répondre à ces questionnaires.
+                        </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <Grid columns={{
+                            'sm': '1', 'md': '2',
+                        }} gap={'4'}>
+
+                            <Card
+                                className={'duration-300 transform hover:scale-105 hover:shadow-2xl hover:cursor-pointer hover:border-2 hover:border-yellow-500 group'}
+                                onClick={() => setupSolo(true)}>
+                                <CardHeader>
+                                    <CardTitle>
+                                        <Flex justify={'start'} align={'center'} gap={'2'}
+                                              className={'group-hover:text-yellow-500'}>
+                                            <Users2 size={32} className={'inline-block'}/> Réponse en groupe
+                                        </Flex>
+                                    </CardTitle>
+                                    <CardDescription>
+                                        Si vous souhaitez faire l'éxperience seul, ou en tant que groupe mais
+                                        en répondant tous ensemble aux questionnaires, cette formule est pour vous.
+                                    </CardDescription>
+                                </CardHeader>
+                            </Card>
+
+                            <Card
+                                className={'duration-300 transform hover:scale-105 hover:shadow-2xl hover:cursor-pointer hover:border-2 hover:border-yellow-500 group'}
+                                onClick={() => setupSolo(false)}>
+                                <CardHeader>
+                                    <CardTitle>
+                                        <Flex justify={'start'} align={'center'} gap={'2'}
+                                              className={'group-hover:text-yellow-500'}>
+                                            <Users size={32} className={'inline-block'}/> Répondre individuellement
+                                        </Flex>
+                                    </CardTitle>
+                                    <CardDescription>
+                                        Si vous êtes un groupe et que vous souhaitez que chaque membre réponde individuellement
+                                        aux questionnaires, cette formule est pour vous.
+                                    </CardDescription>
+                                </CardHeader>
+                            </Card>
+
+                        </Grid>
+                    </CardContent>
+                </Card>
+            )}
+
+
+         {currentStep === 3 && (
         <Card className={'w-3/4 md:w-1/2 shadow-2xl m-4 md:p-0'}>
             <CardHeader>
                 <CardTitle>

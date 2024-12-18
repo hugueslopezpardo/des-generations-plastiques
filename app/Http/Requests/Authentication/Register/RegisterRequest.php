@@ -36,6 +36,7 @@ class RegisterRequest extends FormRequest
             'age' => 'required|integer',
             'gender' => 'required|in:'.implode(',', Gender::all()->pluck('slug')->toArray()),
             'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
+            'is_solo' => 'required|boolean',
             'password' => ['required', 'confirmed', Password::defaults()],
             'password_confirmation' => 'required',
         ];

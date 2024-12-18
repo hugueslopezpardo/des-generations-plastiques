@@ -33,7 +33,7 @@ const DashboardPictures = ({ images }: DashboardPicturesProps) => {
     };
 
     return (
-        <Card className="mt-4">
+        <Card className="mt-1">
             <CardHeader>
                 <CardTitle>Gérer les photos</CardTitle>
                 <CardDescription>

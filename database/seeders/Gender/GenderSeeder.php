@@ -15,6 +15,7 @@ class GenderSeeder extends Seeder
         $data = [
             ['name' => 'Homme', 'slug' => 'homme'],
             ['name' => 'Femme', 'slug' => 'femme'],
+            ['name' => 'Neutre', 'slug' => 'neutre'],
             ['name' => 'Je ne souhaite pas le préciser', 'slug' => 'ne-souhaite-pas-preciser'],
         ];
 

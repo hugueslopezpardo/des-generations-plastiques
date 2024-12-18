@@ -68,6 +68,7 @@ class DashboardController extends Controller
         }
 
         return Inertia::render('Application/Dashboard/Index', [
+            'user' => Auth::user()->toArray(),
             'levels' => SchoolLevel::all()->toArray(),
             'regions' => Region::all()->toArray(),
             'genders' => Gender::all()->toArray(),

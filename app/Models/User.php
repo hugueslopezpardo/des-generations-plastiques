@@ -58,6 +58,7 @@ class User extends Authenticatable implements FilamentUser
         'password',     // Password of the user
         'gender_id',    // Foreign key for the gender of the user
         'user_type_id', // Foreign key for the user type of the user
+        'is_solo',      // Boolean to determine if the user is solo
     ];
 
     /**

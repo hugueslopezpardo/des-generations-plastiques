@@ -94,56 +94,6 @@ const DashboardSchoolSettings = ({deliveryStatus, regions, levels}: DashboardSch
 
     return (
         <Flex gap={'4'} direction={'column'}>
-
-            <Card>
-                <CardHeader>
-                    <CardTitle>
-                        Statut de livraison du kit
-                    </CardTitle>
-                    <CardDescription>
-                        Suivez l'avancement de la livraison de votre kit de l'aventure Des générations plastiques.
-                    </CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <CardDescription>
-
-                        {deliveryStatus.delivery_status_id === 1 && (
-                            <Badge className={'bg-slate-500 text-white'}>
-                                En attente de livraison
-                            </Badge>
-                        )}
-                        {deliveryStatus.delivery_status_id === 2 && (
-                            <Badge className={'bg-yellow-500 text-white'}>
-                                En cours de livraison
-                            </Badge>
-                        )}
-
-                        {deliveryStatus.delivery_status_id === 3 && (
-                            <Badge className={'bg-green-500 text-white'}>
-                                Livré
-                            </Badge>
-                        )}
-
-                        {deliveryStatus.delivery_status_id === 4 && (
-                            <Badge className={'bg-red-500 text-white'}>
-                                Annulé
-                            </Badge>
-                        )}
-
-                        {deliveryStatus.delivery_status_id === 5 && (
-                            <Badge className={'bg-gray-500 text-white'}>
-                                Retourné
-                            </Badge>
-                        )}
-
-
-
-
-                    </CardDescription>
-                </CardContent>
-
-            </Card>
-
             <Card>
                 <CardHeader>
                     <CardTitle>

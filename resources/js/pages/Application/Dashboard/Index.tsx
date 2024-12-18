@@ -24,6 +24,7 @@ import DashboardAssociation from "@/pages/Application/Dashboard/Partials/Core/As
 import DashboardIndividual from "@/pages/Application/Dashboard/Partials/Core/Individual/DashboardIndividual";
 
 interface DashboardPageProps {
+    user: any;
     levels: any[];
     regions: any[];
     genders: Gender[];
@@ -34,12 +35,7 @@ interface DashboardPageProps {
     members: any[];
 }
 
-const DashboardPage = ({levels, regions, genders, deliveryStatus, images, students, members}: DashboardPageProps) => {
-
-    /**
-     * Get the authenticated user.
-     */
-    const user = usePage().props.auth.user;
+const DashboardPage = ({user, levels, regions, genders, deliveryStatus, images, students, members}: DashboardPageProps) => {
 
     return (
        <AuthenticatedLayout title={'Tableau de bord'}>

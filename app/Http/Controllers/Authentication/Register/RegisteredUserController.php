@@ -47,33 +47,13 @@ class RegisteredUserController extends Controller
             'gender_id' => Gender::where('slug', $request->gender)->first()->id,
             'user_type_id' => $request->user_type_id,
             'email' => $request->email,
+            'is_solo' => $request->is_solo,
             'password' => Hash::make($request->password),
         ]);
 
         $user->roles()->attach(
             Role::where('slug', 'utilisateur')->first()->id
         );
-    /*
-        // If user_type_id == 1 (individual)
-        if ($request->user_type_id == 1) {
-            Mail::to($user->email)->send(new UserRegisterIndividual($user));
-        }
-
-        // If user_type_id == 2 (school)
-        else if ($request->user_type_id == 2) {
-            Mail::to($user->email)->send(new UserRegisterSchool($user));
-        }
-
-        // If user_type_id == 3 (other)
-        else if ($request->user_type_id == 3) {
-            Mail::to($user->email)->send(new UserRegisterOthers($user));
-        }
-
-        // event(new Registered($user));
-
-        // Auth::login($user);
-
-    */
 
         return redirect()->route('login');
     }

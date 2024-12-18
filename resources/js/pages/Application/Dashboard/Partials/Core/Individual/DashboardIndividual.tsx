@@ -5,12 +5,16 @@ import DashboardPictures from "@/pages/Application/Dashboard/Partials/Common/Pic
 import DashboardPicturesGallery from "@/pages/Application/Dashboard/Partials/Common/Pictures/DashboardPicturesGallery";
 import DashboardIndividualGeneral
     from "@/pages/Application/Dashboard/Partials/Core/Individual/DashboardIndividualGeneral";
+import {usePage} from "@inertiajs/react";
 
 interface DashboardIndividualProps {
     images: string[];
 }
 
 const DashboardIndividual = ({images}: DashboardIndividualProps) => {
+
+
+
     return (
         <Tabs defaultValue="general" className="w-11/12 md:w-3/4 mt-24">
             <TabsList className="grid h-auto w-full grid-cols-1 md:grid-cols-3">
