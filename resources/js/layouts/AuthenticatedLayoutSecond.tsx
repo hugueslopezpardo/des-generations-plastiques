@@ -1,6 +1,7 @@
 import {PropsWithChildren} from "react";
 import {Head} from "@inertiajs/react";
 import Navbar from "@/components/app/Navbar/Navbar";
+import {Flex} from "@radix-ui/themes";
 
 /**
  * @interface AuthenticatedLayoutProps - The props of the Authenticated layout component.
@@ -16,14 +17,16 @@ interface AuthenticatedLayoutProps {
  * @param children - The children of the Authenticated layout.
  * @constructor
  */
-const AuthenticatedLayout = ({title, children}: PropsWithChildren<AuthenticatedLayoutProps>) => {
+const AuthenticatedLayoutSecond = ({title, children}: PropsWithChildren<AuthenticatedLayoutProps>) => {
     return (
         <>
             <Head title={title} />
-            <Navbar />
-            {children}
+            <Flex justify={'center'} align={'center'} direction={'column'} className={'py-8 min-h-screen bg-gradient-to-r from-[#F7B501] to-yellow-500'}>
+                <img src={'/assets/images/logo-rond.png'} alt={'Logo'} className={'mx-auto mb-8 w-36 h-36'} />
+                {children}
+            </Flex>
         </>
     );
 }
 
-export default AuthenticatedLayout;
+export default AuthenticatedLayoutSecond;
