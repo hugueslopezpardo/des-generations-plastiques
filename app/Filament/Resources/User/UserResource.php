@@ -120,8 +120,8 @@ class UserResource extends Resource
             ->actions([
             ])
             ->bulkActions([
-                ExportBulkAction::make(),
                 Tables\Actions\BulkActionGroup::make([
+                    ExportBulkAction::make(),
                 ]),
             ]);
     }
