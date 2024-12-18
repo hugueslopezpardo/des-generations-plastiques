@@ -20,6 +20,7 @@ const AuthenticatedLayout = ({title, children}: PropsWithChildren<AuthenticatedL
     return (
         <>
             <Head title={title} />
+            <Navbar />
             {children}
         </>
     );

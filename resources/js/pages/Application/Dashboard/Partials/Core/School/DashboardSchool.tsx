@@ -40,7 +40,9 @@ const DashboardSchool = ({regions, genders, deliveryStatus, images, students, le
                 <TabsTrigger value="general_home">
                     Accueil
                 </TabsTrigger>
-                <TabsTrigger value="general_group">Questionnaires</TabsTrigger>
+                <TabsTrigger value="general_group">
+                    Expérience comportement de consommation
+                </TabsTrigger>
                 <TabsTrigger value="pictures">Gestion du kit</TabsTrigger>
                 <TabsTrigger value="settings">Paramètres</TabsTrigger>
             </TabsList>
@@ -114,10 +116,12 @@ const DashboardSchool = ({regions, genders, deliveryStatus, images, students, le
                     Accueil
                 </TabsTrigger>
                 <TabsTrigger value="general_individual">
-                    Questionnaires
+                    Expérience comportement de consommation
                 </TabsTrigger>
                 <TabsTrigger value="students">Mes élèves</TabsTrigger>
-                <TabsTrigger value="pictures">Gestion du kit</TabsTrigger>
+                <TabsTrigger value="pictures">
+                    Expérience biodégradabilité
+                </TabsTrigger>
                 <TabsTrigger value="settings">Paramètres</TabsTrigger>
             </TabsList>
             <TabsContent value={'general_home'}>
